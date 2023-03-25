@@ -43,13 +43,14 @@ def obddvar(name, index=None):
     represented by a binary decision diagram.
     Variable instances may be used to symbolically construct larger BDDs.
     """
-    bvar = boolfunc.var(name, index)
+    bvar = boolean.var(name, index)
     try:
         var = _VARS[bvar.uniqid]
     except KeyError:
         var = _VARS[bvar.uniqid] = OBDDVariable(bvar)
         _BDDS[var.node] = var
     return var
+
 
 def _expr2obddnode(expr):
     """Convert an expression into a BDD node."""
@@ -94,7 +95,7 @@ def _obdd(node):
     return bdd
 
 
-class OrderedBinaryDecisionDiagram(boolfunc.Function):
+class OrderedBinaryDecisionDiagram(boolean.Function):
     """Boolean function represented by a binary decision diagram
 
     * Convert an expression using the "expr2bdd" function.
@@ -245,7 +246,7 @@ BDDZERO = _BDDS[BDDNODEZERO] = BDDConstant(BDDNODEZERO, 0)
 BDDONE = _BDDS[BDDNODEONE] = BDDConstant(BDDNODEONE, 1)
 
 
-class OBDDVariable(boolfunc.Variable, OrderedBinaryDecisionDiagram):
+class OBDDVariable(boolean.Variable, OrderedBinaryDecisionDiagram):
     """Binary decision diagram variable
 
     The "BDDVariable" class is useful for type checking,
@@ -256,7 +257,7 @@ class OBDDVariable(boolfunc.Variable, OrderedBinaryDecisionDiagram):
     """
 
     def __init__(self, bvar):
-        boolfunc.Variable.__init__(self, bvar.names, bvar.indices)
+        boolean.Variable.__init__(self, bvar.names, bvar.indices)
         node = _obddnode(bvar.uniqid, BDDNODEZERO, BDDNODEONE)
         OrderedBinaryDecisionDiagram.__init__(self, node)
 
