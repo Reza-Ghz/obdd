@@ -1,5 +1,7 @@
 <div align="justify">
 
+# Ordered Binary Decision Diagrams (OBDDs) implementation in python
+
 ## Introduction
 
 Ordered Binary Decision Diagrams (OBDDs) are a data structure used to represent boolean functions. A boolean function is
